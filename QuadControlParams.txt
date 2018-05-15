@@ -1,0 +1,60 @@
+############################## SLR SIMPLECONFIG ############################
+# this is a comment. [X] is a namespace. [X:Y] initializes X from Y
+# Namespace and parameter names are not case-sensitive
+# X=Y sets X to Y. Y may be a string, float, or list of 3 floats
+############################################################################
+
+[QuadControlParams] 
+
+UseIdealEstimator=1
+
+# Physical properties
+Mass = 0.5
+L = 0.17
+Ixx = 0.0023
+Iyy = 0.0023
+Izz = 0.0046
+kappa = 0.016
+minMotorThrust = .1
+maxMotorThrust = 4.5
+
+# Position control gains
+kpPosXY = 3.6
+kpVelXY = 9.3
+
+# Z
+kpPosZ = 2
+kpVelZ = 8  
+KiPosZ = 31
+
+# Angle control gains
+kpBank = 16
+kpYaw = 8
+
+# Angle rate gains
+kpPQR = 92,92,20
+
+# limits
+maxAscentRate = 5
+maxDescentRate = 2
+maxSpeedXY = 5
+maxHorizAccel = 12
+maxTiltAngle = .7
+
+# Scenario 2
+# Fixed: GenerateMotorCommands()
+# Implement: BodyRateControl() 
+# Tune: kpPQR to get the vehicle to stop spinning quickly but not overshoot
+# Implement: RollPitchControl() 
+# Tune: kpBank to minimize settling time but avoid too much overshoot
+
+# Scenario 3
+# Implement: LateralPositionControl(), AltitudeControl()
+# Tune: kpPosXY, kpPosZ
+# Tune: kpVelXY, kpVelZ
+# Implement: YawControl()
+# Tune: kpYaw and the 3rd (z) component of kpPQR
+
+# Scenario 4, the Red is heavier, the Orange is ideal, the Green has shifted mass
+# Implement: Add KiPosZ to AltitudeControl()
+# Tune KiPosZ, and other control parameters until move properly
